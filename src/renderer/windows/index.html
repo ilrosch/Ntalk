@@ -4,58 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ntalk</title>
-    <link rel="stylesheet" href="./asserts/styles/style.css" />
+    <link rel="stylesheet" href="../../asserts/styles/style.css" />
   </head>
   <body>
     <main class="container" id="container">
       <div class="panel">
-        <a href="#" class="panel__logo">
+        <div class="panel__logo">
           <span class="panel__logo-title">Ntalk</span>
           <span class="panel__logo-subtitle">Анонимность - превыше всего!</span>
-        </a>
-
-        <div class="panel__actions">
-          <button type="button" class="btn panel__actions-btn panel__actions-btn_green">Добавить собеседника</button>
-          <button type="button" class="btn panel__actions-btn panel__actions-btn_red">Удалить профиль</button>
         </div>
 
-        <ul class="contacts" id="contacts">
-          <li>
-            <button class="contacts__item contacts__item_active">
-              <div class="contacts__item-icon"></div>
-              <div class="contacts__item-block">
-                <div class="contacts__item-title">Антон</div>
-                <div class="status status_on">Онлайн</div>
-              </div>
-            </button>
-          </li>
-          <li>
-            <button class="contacts__item">
-              <div class="contacts__item-icon"></div>
-              <div class="contacts__item-block">
-                <div class="contacts__item-title">004fdregr-6546-ytry5-yt-554756</div>
-                <div class="status status_off">Офлайн</div>
-              </div>
-            </button>
-          </li>
-        </ul>
+        <div class="panel__actions">
+          <button type="button" class="btn btn_green panel__actions-btn" data-action="modal-add">Добавить собеседника</button>
+          <button type="button" class="btn btn_red panel__actions-btn" data-action="remove-user-data">Удалить профиль</button>
+        </div>
+
+        <ul class="contacts" id="contacts"></ul>
 
         <div class="info">
           <div class="info__title">Ваш идентификатор</div>
-          <div class="info__id">004fdregr-6546-ytry5-yt-554756</div>
+          <div class="info__id" id="uuid"></div>
         </div>
       </div>
 
       <div class="msg">
-        <div class="msg__header">
+        <div class="msg__header" id="msg-header">
           <div class="msg__header-block">
-            <div class="msg__header-title">004fdregr-6546-ytry5-yt-554756</div>
+            <div class="msg__header-title">Hello</div>
             <button type="button" class="btn msg__header-btn">Переименовать</button>
           </div>
           <div class="msg__header-status status status_on">Онлайн</div>
         </div>
-        <div class="msg__main">
-          <div class="msg__item">
+        <div class="msg__main" id="messsages">
+          <!-- <div class="msg__item">
             <div class="msg__item-date">12.12.2025</div>
             <div class="msg__item-content msg__item-content_sented">
               Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в
@@ -78,15 +59,16 @@
               Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в
               электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="msg__footer">
-          <form action="" class="msg__footer-form">
-            <textarea type="text" class="msg__footer-feed" placeholder="Ваше сообщение..."></textarea>
-            <button type="submit" class="btn msg__footer-btn">Отправить</button>
+          <form action="" class="msg__footer-form" id="form-add-message">
+            <textarea type="text" class="msg__footer-feed" name="message" placeholder="Ваше сообщение..."></textarea>
+            <button type="submit" class="btn btn_green">Отправить</button>
           </form>
         </div>
       </div>
     </main>
+    <script type="module" src="../scripts/main.mjs"></script>
   </body>
 </html>

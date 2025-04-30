@@ -135,23 +135,3 @@
 .msg__footer-feed::placeholder {
   color: rgba(0, 0, 0, 0.4);
 }
-
-/* .msg__footer-btn */
-.msg__footer-btn {
-  background-color: #5ba87b;
-}
-
-/* .msg__footer-btn:focus */
-.msg__footer-btn:focus {
-  outline-color: #438f63;
-}
-
-/* .msg__footer-btn:hover */
-.msg__footer-btn:hover {
-  background-color: #68b387;
-}
-
-/* .msg__footer-btn:active */
-.msg__footer-btn:active {
-  background-color: #438f63;
-}
