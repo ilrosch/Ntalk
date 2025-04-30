@@ -16,6 +16,7 @@ body {
 
 /* .btn */
 .btn {
+  display: inline-block;
   border-radius: 2px;
   padding: 10px 12px;
   font-size: 18px;
@@ -32,6 +33,49 @@ body {
 /* .btn:focus */
 .btn:focus {
   outline-color: var(--white-color);
+}
+
+/* .btn_green */
+.btn_green {
+  background-color: #5ba87b;
+}
+
+/* .btn_green:focus */
+.btn_green:focus {
+  outline-color: #438f63;
+}
+
+/* .btn_green:hover */
+.btn_green:hover {
+  background-color: #68b387;
+}
+
+.btn_green:active {
+  background-color: #31754d;
+}
+
+/* .btn_red:active */
+.btn_red:active {
+  background-color: #438f63;
+}
+
+.btn_red {
+  background-color: #b13737;
+}
+
+/* .btn_red:focus */
+.btn_red:focus {
+  outline-color: #c74444;
+}
+
+/* .btn_red:hover */
+.btn_red:hover {
+  background-color: #c74444;
+}
+
+/* .btn_green:active */
+.btn_red:active {
+  background-color: #a52f2f;
 }
 
 /* .status */
