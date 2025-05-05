@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,60 +11,35 @@
       <div class="panel">
         <div class="panel__logo">
           <span class="panel__logo-title">Ntalk</span>
-          <span class="panel__logo-subtitle">Анонимность - превыше всего!</span>
+          <span class="panel__logo-subtitle">Anonymity above all else!</span>
         </div>
-
         <div class="panel__actions">
-          <button type="button" class="btn btn_green panel__actions-btn" data-action="modal-add">Добавить собеседника</button>
-          <button type="button" class="btn btn_red panel__actions-btn" data-action="remove-user-data">Удалить профиль</button>
+          <button type="button" class="btn btn_green panel__actions-btn" title="Add contact" data-action="modal-add">Add contact</button>
+          <button type="button" class="btn btn_red panel__actions-btn" title="Delete your profile" data-action="remove-user-data">Delete your profile</button>
         </div>
-
         <ul class="contacts" id="contacts"></ul>
-
         <div class="info">
-          <div class="info__title">Ваш идентификатор</div>
+          <div class="info__title">Your UUID</div>
           <div class="info__id" id="uuid"></div>
         </div>
       </div>
-
-      <div class="msg">
+      <div class="msg" id="chat">
         <div class="msg__header" id="msg-header">
-          <div class="msg__header-block">
-            <div class="msg__header-title">Hello</div>
-            <button type="button" class="btn msg__header-btn">Переименовать</button>
+          <div class="msg__header-title">
+            <div class="status status_off"></div>
+            <span class="msg__header-name">1907dc02-2cf5-4b2f-a4f0-ca37df868369</span>
           </div>
-          <div class="msg__header-status status status_on">Онлайн</div>
-        </div>
-        <div class="msg__main" id="messsages">
-          <!-- <div class="msg__item">
-            <div class="msg__item-date">12.12.2025</div>
-            <div class="msg__item-content msg__item-content_sented">
-              Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в
-              электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-            </div>
-            <div class="msg__item-content msg__item-content_received">
-              Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в
-              электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-            </div>
+          <div class="msg__header-btns">
+            <button type="button" class="msg__header-btn btn btn_blue" data-action="rename" title="Rename"></button>
+            <button type="button" class="msg__header-btn btn btn_yellow" data-action="clear" title="Clear chat"></button>
+            <button type="button" class="msg__header-btn btn btn_red" data-action="delete" title="Delete contact"></button>
           </div>
-
-          <div class="msg__item">
-            <div class="msg__item-date">13.12.2025</div>
-            <div class="msg__item-content msg__item-content_sented">
-              Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в
-              электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-            </div>
-
-            <div class="msg__item-content msg__item-content_sented">
-              Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в
-              электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-            </div>
-          </div> -->
         </div>
-        <div class="msg__footer">
+        <div class="msg__body" id="msg-body"></div>
+        <div class="msg__footer hidden" id="msg-footer">
           <form action="" class="msg__footer-form" id="form-add-message">
-            <textarea type="text" class="msg__footer-feed" name="message" placeholder="Ваше сообщение..."></textarea>
-            <button type="submit" class="btn btn_green">Отправить</button>
+            <textarea type="text" class="msg__footer-feed" name="message" placeholder="Your message..."></textarea>
+            <button type="submit" title="Send" class="btn btn_green">Send</button>
           </form>
         </div>
       </div>

@@ -8,19 +8,36 @@ import {
   renameContact,
   removeUserData,
   sendMessage,
+  clearMessages,
+  rmContact,
 } from './main/controllers.mjs';
 
 import { routers } from './main/routers.mjs';
-import init from './main/init.mjs';
+import { init, isExistProfile } from './main/init.mjs';
 import store from './main/store.mjs';
 
 import './main/menu.mjs';
 
 
+const showMainWindow = () => {
+  const { fileMainWin } = routers.local;
+  const mainWin = createMainWindow(fileMainWin);
+
+  mainWin.webContents.on('did-finish-load', () => {
+    mainWin.webContents.send('get-state', store.getState());
+  });
+
+  return mainWin;
+};
+
 app.whenReady().then(() => {
   let modalWin;
-  const mainWin = createMainWindow();
+  let isWelcomeWin = !isExistProfile();
+  let mainWin = isWelcomeWin
+    ? createMainWindow(routers.local.fileWelcomeWin)
+    : showMainWindow();
 
+  // Инициализации внутреннего состояния
   init(store);
 
   // Отслеживаем изменение состояния
@@ -35,13 +52,23 @@ app.whenReady().then(() => {
 
   // Обработка действий
   ipcMain.on('add-contact', async (_event, uuid) => {
+    if (isWelcomeWin) {
+      mainWin.close();
+      mainWin = showMainWindow();
+      isWelcomeWin = false;
+    }
+
     await addContact(uuid);
-    modalWin.close();
+    if (modalWin) modalWin.close();
   });
 
   ipcMain.on('rename-contact', async (_event, uuid) => {
     await renameContact(uuid);
     modalWin.close();
+  });
+
+  ipcMain.on('remove-contact', async (_event, uuid) => {
+    await rmContact(uuid);
   });
 
   ipcMain.on('set-active-contact', async (_event, uuid) => {
@@ -50,6 +77,10 @@ app.whenReady().then(() => {
 
   ipcMain.on('send-message', async (_event, message) => {
     await sendMessage(message);
+  });
+
+  ipcMain.on('clear-messages', async () => {
+    await clearMessages();
   });
 
   ipcMain.on('remove-user-data', async () => {

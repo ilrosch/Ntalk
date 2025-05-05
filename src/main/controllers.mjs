@@ -1,6 +1,6 @@
 import fsp from 'fs/promises';
 
-import { selector as selectorContacts, setContact, updateContact } from "./services/contactsSlice.mjs";
+import { selector as selectorContacts, setContact, updateContact, removeContact } from "./services/contactsSlice.mjs";
 import { selector as selectorMessages, setMessage, setMessages } from './services/messagesSlice.mjs';
 import { setUuidActive } from './services/uuidSlice.mjs';
 
@@ -17,14 +17,22 @@ const writeContacts = async () => {
   await fsp.writeFile(fileContacts, JSON.stringify(contacts));
 };
 
+const writeMessages = async (uuid) => {
+  const { fileMessages } = routers.local;
+  const entities = selectorMessages.selectEntities(store.getState());
+  await fsp.writeFile(fileMessages(uuid), JSON.stringify(entities));
+};
+
 const changeActiveContact = async (uuid) => {
   const { fileMessages } = routers.local;
   try {
-    const data = await fsp.readFile(fileMessages(uuid), 'utf-8');
-    store.dispatch(setMessages(JSON.parse(data || '{}')));
+    if (uuid) {
+      const data = await fsp.readFile(fileMessages(uuid), 'utf-8');
+      store.dispatch(setMessages(JSON.parse(data || '{}')));
+    }
     store.dispatch(setUuidActive(uuid));
   } catch (err) {
-    showNotification(`Возникла ошибка: ${err}`);
+    showNotification(`An error occurred: ${err}`);
   }
 };
 
@@ -33,7 +41,7 @@ const addContact = async (uuid) => {
 
   if (currentIds.includes(uuid)) {
     await changeActiveContact(uuid);
-    showNotification('Собеседник с таким идентификатором уже существует!');
+    showNotification('An contact with this UUID already exists!');
     return;
   }
 
@@ -51,9 +59,9 @@ const addContact = async (uuid) => {
     // Изменение состояния
     await changeActiveContact(uuid);
 
-    showNotification('Собеседник добавлен успешно! Приятного общения)');
+    showNotification('Contact added successfully! Have a nice chat)');
   } catch (err) {
-    showNotification(`Возникла ошибка при добавлении собеседника: ${err}`);
+    showNotification(`An error occurred: ${err}`);
   }
 };
 
@@ -62,9 +70,9 @@ const renameContact = async (name) => {
   try {
     store.dispatch(updateContact({ id: uuidActive, changes: { name } }));
     await writeContacts();
-    showNotification('Собеседник успешно переименован!');
+    showNotification('Contact renamed successfully!');
   } catch (err) {
-    showNotification(`Возникла ошибка при переименовании собеседника: ${err}`);
+    showNotification(`An error occurred: ${err}`);
   }
 };
 
@@ -80,7 +88,7 @@ const sendMessage = async (message) => {
     const messages = selectorMessages.selectEntities(store.getState());
     await fsp.writeFile(fileMessages(uuidActive), JSON.stringify(messages));
   } catch (err) {
-    showNotification(`Возникла ошибка при отправки сообщения: ${err}`);
+    showNotification(`An error occurred: ${err}`);
   }
 };
 
@@ -88,9 +96,39 @@ const removeUserData = async () => {
   const { dirUserData } = routers.local;
   try {
     await fsp.rmdir(dirUserData, { recursive: true });
-    showNotification('Ваш профиль успешно удален!');
+    showNotification('Your profile was successfully deleted!');
   } catch (err) {
-    showNotification(`Возникла ошибка при удалении профиля: ${err}`);
+    showNotification(`An error occurred: ${err}`);
+  }
+};
+
+const clearMessages = async () => {
+  const { uuidActive } = store.getState().uuid;
+  try {
+    store.dispatch(setMessages({}));
+    await writeMessages(uuidActive);
+    showNotification('Chat is cleared successfully!');
+  } catch (err) {
+    showNotification(`An error occurred: ${err}`);
+  }
+};
+
+const rmContact = async () => {
+  const { fileMessages } = routers.local;
+  const { uuidActive } = store.getState().uuid;
+  try {
+    store.dispatch(removeContact(uuidActive));
+    await fsp.rm(fileMessages(uuidActive));
+    await writeContacts();
+    const newActive = selectorContacts.selectIds(store.getState());
+    if (newActive.length !== 0) {
+      await changeActiveContact(newActive[0]);
+    } else {
+      await changeActiveContact(null);
+    }
+    showNotification('Contact is removed successfully!');
+  } catch (err) {
+    showNotification(`An error occurred: ${err}`);
   }
 };
 
@@ -100,4 +138,6 @@ export {
   renameContact,
   removeUserData,
   sendMessage,
+  clearMessages,
+  rmContact,
 };

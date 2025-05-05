@@ -1,16 +1,16 @@
 # Ntalk client
 
-Десктопное приложение для обмена сообщениями между пользователями с акцентом на обеспечение анонимности и безопасности коммуникации.
+A desktop application for user-to-user messaging with a focus on ensuring anonymity and secure communication.
 
 ---
 
-**Запуск приложения**
+**Run application**
 
 ```console
   npm run start
 ```
 
-**Сборка приложения**
+**Build application**
 
 ```console
   npm run make

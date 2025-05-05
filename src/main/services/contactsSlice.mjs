@@ -10,11 +10,12 @@ const contactsSlice = createSlice({
     setContact: contactsAdapter.addOne,
     setContacts: contactsAdapter.setMany,
     updateContact: contactsAdapter.updateOne,
+    removeContact: contactsAdapter.removeOne,
   },
 });
 
 export const selector = contactsAdapter.getSelectors((state) => state.contacts);
 
-export const { setContact, setContacts, updateContact } = contactsSlice.actions;
+export const { setContact, setContacts, updateContact, removeContact } = contactsSlice.actions;
 
 export default contactsSlice.reducer;

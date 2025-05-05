@@ -2,7 +2,7 @@ import { BrowserWindow } from "electron";
 import { routers } from "./routers.mjs";
 
 
-const createMainWindow = () => {
+const createMainWindow = (pathFile) => {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -17,8 +17,8 @@ const createMainWindow = () => {
     },
   });
 
-  win.loadFile(routers.local.fileMainWin);
-  win.webContents.openDevTools();
+  win.loadFile(pathFile);
+  // win.webContents.openDevTools();
 
   return win;
 };

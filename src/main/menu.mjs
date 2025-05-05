@@ -12,10 +12,6 @@ const template = [
     ],
   },
   {
-    label: 'Действия',
-    submenu: []
-  },
-  {
     label: 'Помощь',
     submenu: [
       {

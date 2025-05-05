@@ -12,6 +12,8 @@ contextBridge.exposeInMainWorld('appModules', {
   removeUserData: () => ipcRenderer.send('remove-user-data'),
   sendMessage: (msg) => ipcRenderer.send('send-message', msg),
   setActiveContact: (uuid) => ipcRenderer.send('set-active-contact', uuid),
+  clearMessages: () => ipcRenderer.send('clear-messages'),
+  removeContact: () => ipcRenderer.send('remove-contact'),
   // Прочее
   isValidUUID: (uuid) => ipcRenderer.invoke('is-valid-uuid', uuid),
 });

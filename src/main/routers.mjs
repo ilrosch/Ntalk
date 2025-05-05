@@ -13,6 +13,7 @@ export const routers = {
     fileModalAdd: path.join(__dirname, '../renderer/windows/modal-add.html'),
     fileModalRename: path.join(__dirname, '../renderer/windows/modal-rename.html'),
     fileMainWin: path.join(__dirname, '../renderer/windows/index.html'),
+    fileWelcomeWin: path.join(__dirname, '../renderer/windows/welcome.html'),
     fileIcon: path.join(__dirname, '../asserts/img/icon.png'),
     filePreload: path.join(__dirname, '../main/preload.mjs'),
     // user data

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Ntalk</title>
+    <link rel="stylesheet" href="../../asserts/styles/style-welcome.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="welcome">
+        <div class="welcome__img">
+          <img src="../../asserts/img/welcome.png" alt="welcome" />
+        </div>
+        <div class="welcome__card">
+          <div class="welcome__header">
+            <h1 class="welcome__title">Welcome to Ntalk</h1>
+          </div>
+          <div class="welcome__body">
+            <div class="welcome__block">
+              <p class="welcome__text">Welcome to Ntalk! Chat for those who value anonymity and openness. Respect others, be yourself and start a dialogue now.</p>
+              <div class="welcome__text welcome__uuid" id="uuid" title="Copy UUID">
+                <strong>Your UUID: </strong>
+                <span id="span-uuid"></span>
+              </div>
+            </div>
+            <div class="welcome__btns">
+              <button type="button" class="btn btn_green" title="Add contact" data-action="openModalAdd">Add contact</button>
+              <button type="button" class="btn btn_yellow" title="Import profile" data-action="openImportProfile">Import profile</button>
+            </div>
+            <a href="https://github.com/ilrosch/Ntalk" target="_blank" class="welcome__link" title="Learn more">Learn more</a>
+          </div>
+        </div>
+
+        <div class="welcome__notification" id="notification">
+          <span class="welcome__text"></span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../scripts/welcome.mjs"></script>
+  </body>
+</html>
