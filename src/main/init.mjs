@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import fsp from 'fs/promises';
 import { existsSync } from 'fs';
 import { v4 as uuidv4, validate as uuidValidate } from "uuid";
@@ -57,7 +58,7 @@ const uuidLoading = async (store) => {
       throw new Error('UUID is not valid!');
     }
     store.dispatch(setUuid(uuid));
-  } catch (err) {
+  } catch (_err) {
     await createNewUuid();
   }
 };
@@ -89,7 +90,7 @@ const contactsLoading = async (store) => {
     // Загрузка сообщений
     const messages = await fsp.readFile(fileMessages(uuid), 'utf-8');
     store.dispatch(setMessages(JSON.parse(messages)));
-  } catch (err) {
+  } catch (_err) {
     await createNewContacts();
   }
 };
