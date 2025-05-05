@@ -3,7 +3,7 @@ name: Ntalk (builder & publiher)
 on:
   push:
     tags:
-      - 'v*' # Запуск только при создании тега версии
+      - 'v*'
 
 jobs:
   build:
@@ -28,17 +28,7 @@ jobs:
       - name: Linter run
         run: npm run lint
 
-      - name: Build App
-        run: npm run package
-
-      - name: Create Release and Upload Artifacts
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish
+        run: npm run publish
         env:
-          GITHUB_TOKEN: ${{ secrets.NTALK_TOKEN }}
-        run: |
-          gh release create $(git describe --tags) \
-            --title "Release $(git describe --tags)" \
-            --notes "Automated release" \
-            --repo ilrosch/Ntalk \
-            --token $GITHUB_TOKEN \
-            dist/*/*.zip dist/*/*.exe dist/*.deb dist/*.rpm
+          NTALK_TOKEN: ${{ secrets.NTALK_TOKEN }}
