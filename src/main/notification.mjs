@@ -4,7 +4,7 @@ import { routers } from "./routers.mjs";
 
 const showNotification = (message) => {
   const notification = new Notification({
-    title: 'Уведомление от Ntalk',
+    title: 'Notice from Ntalk',
     body: message,
     icon: routers.local.fileIcon,
   });

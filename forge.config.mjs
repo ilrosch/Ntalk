@@ -1,5 +1,8 @@
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default {
   packagerConfig: {
@@ -40,5 +43,19 @@ export default {
       [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'ilrosch',
+          name: 'Ntalk',
+        },
+        prerelease: true,
+        draft: false,
+        authToken: process.env.NTALK_TOKEN,
+      },
+    },
   ],
 };

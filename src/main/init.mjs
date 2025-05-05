@@ -1,4 +1,5 @@
 import fsp from 'fs/promises';
+import { existsSync } from 'fs';
 import { v4 as uuidv4, validate as uuidValidate } from "uuid";
 
 import { setContacts } from "./services/contactsSlice.mjs";
@@ -17,7 +18,7 @@ const createDirUserData = () => {
       await fsp.mkdir(dirUserData);
       await fsp.mkdir(dirMessages);
     } catch (err) {
-      showNotification(`Возникла ошибка при создании директории: ${err}`);
+      showNotification(`An error occurred: ${err}`);
     }
   };
 
@@ -43,9 +44,8 @@ const uuidLoading = async (store) => {
       const uuid = uuidv4();
       await fsp.writeFile(fileUuid, JSON.stringify({ uuid }));
       store.dispatch(setUuid(uuid));
-      showNotification(`Клиент готов к работе. Ваш индентификатор: ${uuid}`);
     } catch (err) {
-      showNotification(`Возникла ошибка при создании вашего индентификатора: ${err}`);
+      showNotification(`An error occurred: ${err}`);
     }
   };
 
@@ -69,7 +69,7 @@ const contactsLoading = async (store) => {
     try {
       await fsp.writeFile(fileContacts, '');
     } catch (err) {
-      showNotification(`Возникла ошибка при создании файла с контактами: ${err}`);
+      showNotification(`An error occurred: ${err}`);
     }
   }
 
@@ -94,12 +94,20 @@ const contactsLoading = async (store) => {
   }
 };
 
-export default (store) => {
+const init = (store) => {
   // подготовка директории
   // для пользовательских данных
   createDirUserData();
   // подготовка пользовательских данных
   const psUuidLoading = uuidLoading(store);
   const psContactsLoading = contactsLoading(store);
-  return Promise.all([psUuidLoading, psContactsLoading]);
+  return Promise.all([psUuidLoading, psContactsLoading])
+    .then(() => showNotification('The client is ready to work!'));
 };
+
+const isExistProfile = () => {
+  const { dirUserData } = routers.local;
+  return existsSync(dirUserData);
+};
+
+export { init, isExistProfile };

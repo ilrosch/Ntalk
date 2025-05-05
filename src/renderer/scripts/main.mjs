@@ -26,7 +26,7 @@ const renderContacts = (elements, entities, currentUUID) => {
     const status = document.createElement('div');
     const statusName = contact.isOnline ? 'status_on' : 'status_off';
     status.classList.add('status', statusName);
-    status.textContent = contact.isOnline ? 'Онлайн' : 'Офлайн';
+    status.textContent = contact.isOnline ? 'Online' : 'Offline';
 
     block.append(name, status);
     button.append(icon, block);
@@ -39,37 +39,91 @@ const renderContacts = (elements, entities, currentUUID) => {
   elements.contactsContainer.append(...items);
 };
 
+const renderGreating = (elements) => {
+  const greatingBlock = document.createElement('div');
+  greatingBlock.classList.add('msg__greating');
+
+  const img = document.createElement('img');
+  img.classList.add('msg__greating-img');
+  img.src = '../../asserts/img/welcome.png';
+
+  const titleBlock = document.createElement('div');
+  titleBlock.classList.add('msg__greating-block');
+
+  const title = document.createElement('h2');
+  title.classList.add('msg__greating-title');
+  title.textContent = 'Welcome';
+
+  const text = document.createElement('p');
+  text.classList.add('msg__greating-text');
+  text.innerHTML = "You don't have any contacts yet.<br>Add users and enjoy safe communication.";
+
+  titleBlock.append(title, text);
+  greatingBlock.append(img, titleBlock);
+
+  elements.headerContainer.innerHTML = '';
+  elements.messagesContainer.innerHTML = '';
+  elements.footerContainer.classList.add('hidden');
+
+  elements.messagesContainer.append(greatingBlock);
+};
+
 const renderHeader = (elements, contact) => {
-  if (!contact) { return; }
-
   const headerBlock = document.createElement('div');
-  headerBlock.className = 'msg__header-block';
-
-  const headerTitle = document.createElement('div');
-  headerTitle.className = 'msg__header-title';
-  headerTitle.textContent = contact.name;
-
-  const renameButton = document.createElement('button');
-  renameButton.type = 'button';
-  renameButton.className = 'btn msg__header-btn';
-  renameButton.textContent = 'Переименовать';
-
-  renameButton.addEventListener('click', () => {
-    window.appModules.openRenameModal();
-  });
-
-  headerBlock.append(headerTitle, renameButton);
+  headerBlock.classList.add('msg__header-title');
 
   const status = document.createElement('div');
   const statusName = contact.isOnline ? 'status_on' : 'status_off';
   status.classList.add('status', statusName);
-  status.textContent = contact.isOnline ? 'Онлайн' : 'Офлайн';
+
+  const headerTitle = document.createElement('span');
+  headerTitle.classList.add('msg__header-name');
+  headerTitle.textContent = contact.name;
+
+  headerBlock.append(status, headerTitle);
+
+  const btnBlock = document.createElement('div');
+  btnBlock.classList.add('msg__header-btns');
+
+  const btnRename = document.createElement('button');
+  btnRename.classList.add('msg__header-btn', 'btn', 'btn_blue');
+  btnRename.setAttribute('type', 'button');
+  btnRename.setAttribute('data-action', 'rename');
+  btnRename.setAttribute('title', 'Rename contact');
+
+  btnRename.addEventListener('click', () => {
+    window.appModules.openRenameModal();
+  });
+
+  const btnClear = document.createElement('button');
+  btnClear.classList.add('msg__header-btn', 'btn', 'btn_yellow');
+  btnClear.setAttribute('type', 'button');
+  btnClear.setAttribute('data-action', 'clear');
+  btnClear.setAttribute('title', 'Clear chat');
+
+  btnClear.addEventListener('click', () => {
+    window.appModules.clearMessages();
+  });
+
+  const btnDelete = document.createElement('button');
+  btnDelete.classList.add('msg__header-btn', 'btn', 'btn_red');
+  btnDelete.setAttribute('type', 'button');
+  btnDelete.setAttribute('data-action', 'delete');
+  btnDelete.setAttribute('title', 'Delete contact');
+
+  btnDelete.addEventListener('click', () => {
+    window.appModules.removeContact();
+  });
+
+  btnBlock.append(btnRename, btnClear, btnDelete);
 
   elements.headerContainer.innerHTML = '';
-  elements.headerContainer.append(headerBlock, status);
+  elements.headerContainer.append(headerBlock, btnBlock);
 };
 
 const renderMesssages = (elements, entities) => {
+  const { messagesContainer } = elements;
+
   const groups = Object.values(entities).reduce((acc, message) => {
     acc[message.dateId] = acc[message.dateId] ?? [];
     acc[message.dateId].push(message);
@@ -93,9 +147,10 @@ const renderMesssages = (elements, entities) => {
     return item;
   });
 
-  elements.messagesContainer.innerHTML = '';
-  elements.messagesContainer.append(...items);
-  elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
+  messagesContainer.innerHTML = '';
+  messagesContainer.append(...items);
+  // scroll bottom
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 };
 
 const App = () => {
@@ -105,8 +160,10 @@ const App = () => {
     buttonRemoveUser: document.querySelector('[data-action="remove-user-data"]'),
     // Контейнеры для контента
     contactsContainer: document.getElementById('contacts'),
-    messagesContainer: document.getElementById('messsages'),
+    chatContainer: document.getElementById('chat'),
     headerContainer: document.getElementById('msg-header'),
+    messagesContainer: document.getElementById('msg-body'),
+    footerContainer: document.getElementById('msg-footer'),
     // Конкретнные элементы
     uuidElement: document.getElementById('uuid'),
     formElement: document.getElementById('form-add-message'),
@@ -121,8 +178,16 @@ const App = () => {
 
     elements.uuidElement.textContent = uuid;
     renderContacts(elements, contactsEntities, uuidActive);
+
+    if (!uuidActive) {
+      renderGreating(elements);
+      return;
+    }
+
     renderHeader(elements, currentContact);
     renderMesssages(elements, msgEntities);
+
+    elements.footerContainer.classList.toggle('hidden', !uuidActive);
   };
 
   // Отслеживаем состояние

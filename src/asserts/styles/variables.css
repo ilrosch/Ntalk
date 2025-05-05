@@ -1,4 +1,45 @@
 :root {
   /* Colors */
   --white-color: #ffffff;
+
+  --blue-color: #86a0fb;
+  --blue-color-hover: #96acf8;
+  --blue-color-active: #748ce6;
+
+  --green-color: #5ba87b;
+  --green-color-hover: #68b387;
+  --green-color-active: #31754d;
+
+  --red-color: #b13737;
+  --red-color-hover: #c74444;
+  --red-color-active: #a52f2f;
+
+  --yellow-color: #ffb956;
+  --yellow-color-hover: #f2c171;
+  --yellow-color-active: #f0ad40;
+
+  --dark-text-color: rgba(0, 0, 0, 0.6);
+  --dark-text-opacity-color: rgba(0, 0, 0, 0.4);
+  --light-text-color: rgba(255, 255, 255, 0.8);
+
+  --bg-dark-blue-color: #3a395b;
+  --bg-dark-blue-color-hover: #3a3e6b;
+  --bg-dark-blue-color-active: #474b7b;
+
+  --bg-semidark-blue-color: #5c598e;
+
+  --bg-light-color: #ddddf7;
+
+  /* Font size */
+  --font-size-small: 12px;
+  --font-size-normall: 14px;
+  --font-size-subtitle: 20px;
+  --font-size-title: 25px;
+
+  /* Border radius */
+  --border-radius-small: 2px;
+  --border-radius-normal: 3px;
+
+  /* Animation speed */
+  --transition-speed: 0.3s;
 }

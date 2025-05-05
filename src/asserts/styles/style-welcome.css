@@ -1,0 +1,150 @@
+@import './fonts.css';
+@import './variables.css';
+@import './normalize.css';
+@import './all.css';
+
+.container {
+  display: block;
+  min-height: 100lvh;
+  height: auto;
+  background-color: var(--bg-light-color);
+  padding: 30px;
+}
+
+.welcome {
+  position: relative;
+  max-width: 500px;
+  padding-bottom: 40px;
+  margin: 0 auto;
+}
+
+.welcome__img {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--border-radius-normal);
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.welcome__img img {
+  object-fit: cover;
+}
+
+.welcome__card {
+  border-radius: var(--border-radius-normal);
+  background-color: rgb(255, 255, 255, 0.5);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.welcome__header {
+  border-radius: var(--border-radius-normal);
+  background-color: var(--bg-semidark-blue-color);
+  padding: 20px 25px;
+}
+
+.welcome__title {
+  font-size: var(--font-size-title);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--white-color);
+}
+
+.welcome__body {
+  padding: 20px 25px;
+}
+
+.welcome__block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.welcome__uuid {
+  cursor: pointer;
+}
+
+.welcome__uuid:hover span {
+  color: var(--dark-text-opacity-color);
+}
+
+.welcome__uuid span {
+  transition: color var(--transition-speed);
+}
+
+.welcome__text {
+  font-size: var(--font-size-normall);
+  font-weight: 400;
+  text-align: center;
+  color: var(--dark-text-color);
+}
+
+.welcome__btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 30px 0 20px;
+}
+
+.welcome__link {
+  display: block;
+  margin: 0 auto;
+
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  line-height: 120%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-align: center;
+  color: #505050;
+
+  transition: color var(--transition-speed);
+}
+
+.welcome__link:hover {
+  color: #858585;
+}
+
+.welcome__link:active {
+  color: #3b3b3b;
+}
+
+.welcome__notification {
+  display: none;
+
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 12px 20px;
+  margin-top: 6px;
+  border-radius: var(--border-radius-normal);
+}
+
+.open-notification {
+  display: block;
+}
+
+.welcome__notification_success {
+  background-color: var(--green-color);
+}
+
+.welcome__notification_error {
+  background-color: var(--red-color);
+}
+
+.welcome__notification span {
+  display: block;
+  color: var(--white-color);
+  text-align: center;
+}
