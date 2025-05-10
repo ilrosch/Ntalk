@@ -1,27 +1,41 @@
 import { Menu, shell } from 'electron';
+import { exportUserProfile, importUserProfile } from './profile.mjs';
+
 
 const template = [
   {
-    label: 'Окно',
+    label: 'File',
     submenu: [
-      { label: 'Полноэкранный', role: 'togglefullscreen' },
+      { label: 'Fullscreen', role: 'togglefullscreen' },
       { type: 'separator' },
-      { label: 'Обновить', role: 'reload' },
-      { label: 'Свернуть', role: 'minimize' },
-      { label: 'Закрыть', accelerator: 'Ctrl+Z', role: 'quit' },
+      {
+        label: 'Import profile',
+        accelerator: 'Ctrl+Shift+I',
+        click: async () => { await importUserProfile(); },
+      },
+      {
+        label: 'Export profile',
+        accelerator: 'Ctrl+Shift+E',
+        click: async () => { await exportUserProfile(); },
+      },
+      { type: 'separator' },
+      { label: 'Reload', role: 'reload' },
+      { label: 'Minimize', role: 'minimize' },
+      { label: 'Exit', accelerator: 'Ctrl+Z', role: 'quit' },
     ],
   },
   {
-    label: 'Помощь',
+    label: 'Help',
     submenu: [
       {
-        label: 'Документация',
+        label: 'Documentation',
+        accelerator: 'Ctrl+Shift+H',
         click: async () => {
           await shell.openExternal('https://github.com/ilrosch/Ntalk/tree/main');
         },
       },
       {
-        label: 'Узнать больше',
+        label: 'Learn more',
         click: async () => {
           await shell.openExternal('https://github.com/ilrosch/Ntalk/tree/main');
         },

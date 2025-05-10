@@ -1,7 +1,8 @@
 {
-  "name": "Ntalk",
+  "name": "ntalk",
   "productName": "Ntalk",
   "version": "1.0.0",
+  "desktopName": "ntalk.desktop",
   "description": "Anonymous chat",
   "type": "module",
   "main": "src/index.mjs",
@@ -13,11 +14,15 @@
     "lint": "npx eslint .",
     "lint-fix": "npx eslint . --fix"
   },
+  "build": {
+    "appId": "ntalk.desktop"
+  },
   "keywords": [],
   "author": "Ntalk",
   "license": "MIT",
   "dependencies": {
     "@reduxjs/toolkit": "^2.7.0",
+    "adm-zip": "^0.5.16",
     "dotenv": "^16.5.0",
     "electron-squirrel-startup": "^1.0.1",
     "redux": "^5.0.1",

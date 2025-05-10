@@ -12,7 +12,13 @@ export default {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        iconUrl: 'https://github.com/ilrosch/Ntalk/blob/main/src/asserts/img/icon.ico?raw=true',
+        setupIcon: './src/asserts/img/icon.ico',
+        exeOptions: {
+          createDesktopShortcut: true,
+        },
+      }
     },
     {
       name: '@electron-forge/maker-zip',
@@ -20,7 +26,11 @@ export default {
     },
     {
       name: '@electron-forge/maker-deb',
-      config: {},
+      config: {
+        options: {
+          icon: './src/asserts/img/icon.png',
+        },
+      },
     },
     {
       name: '@electron-forge/maker-rpm',
