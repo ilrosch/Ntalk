@@ -14,6 +14,7 @@ import {
 
 import { routers } from './main/routers.mjs';
 import { init, isExistProfile } from './main/init.mjs';
+import { importUserProfile } from './main/profile.mjs';
 import store from './main/store.mjs';
 
 import './main/menu.mjs';
@@ -99,6 +100,15 @@ app.whenReady().then(() => {
 
   ipcMain.on('show-modal-rename', () => {
     modalWin = createModalWindow(mainWin, routers.local.fileModalRename);
+  });
+
+  ipcMain.on('import-profile', async () => {
+    await importUserProfile();
+    if (isWelcomeWin) {
+      mainWin.close();
+      mainWin = showMainWindow();
+      isWelcomeWin = false;
+    }
   });
 
   app.on('activate', () => {

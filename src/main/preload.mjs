@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('appModules', {
   // Обработка окон
   openModalAdd: () => ipcRenderer.send('show-modal-add'),
   openRenameModal: () => ipcRenderer.send('show-modal-rename'),
+  importUserProfile: () => ipcRenderer.send('import-profile'),
   // Обработка состояния
   getState: (cb) => ipcRenderer.on('get-state', (_event, state) => cb(state)),
   addContact: (uuid) => ipcRenderer.send('add-contact', uuid),
