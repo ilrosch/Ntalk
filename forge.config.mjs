@@ -6,17 +6,19 @@ dotenv.config();
 
 export default {
   packagerConfig: {
+    name: 'ntalk',
     asar: true,
+    icon: './src/asserts/img/icon',
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        iconUrl: 'https://github.com/ilrosch/Ntalk/blob/main/src/asserts/img/icon.ico?raw=true',
+        iconUrl: 'https://raw.githubusercontent.com/ilrosch/Ntalk/refs/heads/main/src/asserts/img/icon.ico',
         setupIcon: './src/asserts/img/icon.ico',
-        exeOptions: {
-          createDesktopShortcut: true,
+        setupExeOptions: {
+          desktopShortcut: true,
         },
       }
     },

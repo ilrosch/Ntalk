@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, ipcMain } from 'electron';
 import { validate } from 'uuid';
 
 import { createMainWindow, createModalWindow } from './main/windows.mjs';
@@ -108,12 +108,6 @@ app.whenReady().then(() => {
       mainWin.close();
       mainWin = showMainWindow();
       isWelcomeWin = false;
-    }
-  });
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createMainWindow();
     }
   });
 });
