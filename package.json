@@ -14,9 +14,6 @@
     "lint": "npx eslint .",
     "lint-fix": "npx eslint . --fix"
   },
-  "build": {
-    "appId": "ntalk.desktop"
-  },
   "keywords": [],
   "author": "Ntalk",
   "license": "MIT",
